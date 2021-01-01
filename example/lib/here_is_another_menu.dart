@@ -2,9 +2,7 @@ import 'package:app_popup_menu/app_popup_menu.dart';
 
 export 'package:app_popup_menu/app_popup_menu.dart';
 
-import 'package:flutter/material.dart' show Key, Scaffold, SnackBar, Text;
-
-import 'main.dart';
+import 'package:flutter/material.dart' show Key;
 
 class HereIsAnotherMenu<T> extends AppPopupMenu<T> {
   HereIsAnotherMenu({

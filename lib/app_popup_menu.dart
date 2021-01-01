@@ -73,10 +73,10 @@ class AppPopupMenu<T> {
 
   ///
   final Key key;
-  List<T> items;
-  PopupMenuItemBuilder<T> itemBuilder;
-  T initialValue;
-  PopupMenuItemSelected<T> onSelected;
+  final List<T> items;
+  final PopupMenuItemBuilder<T> itemBuilder;
+  final T initialValue;
+  final PopupMenuItemSelected<T> onSelected;
   PopupMenuCanceled onCanceled;
   String tooltip;
   double elevation;
@@ -89,7 +89,6 @@ class AppPopupMenu<T> {
   Color color;
   bool captureInheritedThemes;
 
-  /// Supply a context any time and anywhere you want.
   BuildContext get context => _context;
 
   set context(BuildContext context) {
@@ -235,6 +234,7 @@ class AppPopupMenu<T> {
 // SubclassMenu(
 //     BuildContext context, {
 //     Key key,
+//     List<T> items,
 //     PopupMenuItemBuilder<String> itemBuilder,
 //     String initialValue,
 //     PopupMenuItemSelected<String> onSelected,
@@ -252,6 +252,7 @@ class AppPopupMenu<T> {
 //   }) : super(
 //           context: context,
 //           key: key,
+//           item: item,
 //           itemBuilder: itemBuilder,
 //           initialValue: initialValue,
 //           onSelected: onSelected,

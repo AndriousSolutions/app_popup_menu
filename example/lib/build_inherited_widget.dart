@@ -21,7 +21,7 @@ class InheritedData extends InheritedWidget {
     if (data != null && data != object.data) {
       object.data = data;
       object.notify = true;
-      BuildInheritedWidget.setState(() {});
+      object.setState(() {});
     }
   }
 
@@ -50,9 +50,6 @@ class BuildInheritedWidget extends StatefulWidget {
   static final _BuildInheritedWidgetState state = _BuildInheritedWidgetState();
   @override
   State createState() => state;
-
-  /// Allow a 'rebuild' by the Widget and not the State.
-  static void setState(VoidCallback fn) => state.setState(fn);
 }
 
 class _BuildInheritedWidgetState extends State<BuildInheritedWidget> {

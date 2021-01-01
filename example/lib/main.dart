@@ -34,19 +34,24 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     appMenu02 = ThisIsAnotherMenu();
+    appMenu02.color = Colors.deepOrangeAccent;
     appMenu03 = HereIsAnotherMenu<String>(
-      items: ['This', 'That', 'Another'],
+      items: ['This', 'That', 'Other'],
       onSelected: (String value) => InheritedData.of(context).data = value,
+    );
+    appMenu03.offset = Offset(0, 45);
+    appMenu03.shape = RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(16),
     );
   }
 
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text("Popup Menu Examples"),
+          title: Text('Popup Menu Examples'),
           actions: [
             appMenu01.popupMenuButton,
-            appMenu02.buttonMenu(),
+            appMenu02.buttonMenu(offset: Offset(0, 100)),
             appMenu03.buttonMenu(
               icon: Icon(Icons.settings),
               onSelected: (dynamic value) {
@@ -57,6 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         body: MenuOption(),
       );
+
 }
 
 class MenuOption extends StatelessWidget {

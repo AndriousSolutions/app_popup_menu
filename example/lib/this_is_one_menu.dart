@@ -16,6 +16,8 @@ class ThisIsOneMenu extends AppPopupMenu<String> {
   @override
   String get initialValue => 'Option 3';
 
+  /// items takes precedence over menuItems
+  /// comment this out and see 5 to 8 options.
   @override
   List<String> get items => [
         'Option 1',
@@ -26,10 +28,10 @@ class ThisIsOneMenu extends AppPopupMenu<String> {
 
   @override
   List<PopupMenuItem<String>> get menuItems => [
-        PopupMenuItem(child: Text('Option 1'), value: '1'),
-        PopupMenuItem(child: Text('Option 2'), value: '2'),
-        PopupMenuItem(child: Text('Option 3'), value: '3'),
-        PopupMenuItem(child: Text('Option 4'), value: '4'),
+        PopupMenuItem(child: Text('Option 5'), value: '1'),
+        PopupMenuItem(child: Text('Option 6'), value: '2'),
+        PopupMenuItem(child: Text('Option 7'), value: '3'),
+        PopupMenuItem(child: Text('Option 8'), value: '4'),
       ];
 
   @override

@@ -12,7 +12,7 @@ import 'build_inherited_widget.dart';
 
 class ThisIsAnotherMenu extends AppPopupMenu<int> {
   //
-  ThisIsAnotherMenu({Key key, BuildContext context})
+  ThisIsAnotherMenu({Key key})
       : super(
           key: key,
         );
