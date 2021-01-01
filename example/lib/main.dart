@@ -6,13 +6,15 @@ import 'this_is_another_menu.dart';
 
 import 'here_is_another_menu.dart';
 
+import 'build_inherited_widget.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: HomeScreen(),
+        home: BuildInheritedWidget(child: HomeScreen()),
       );
 }
 
@@ -22,9 +24,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   _HomeScreenState() {
-    appMenu = ThisIsOneMenu();
+    appMenu01 = ThisIsOneMenu();
   }
-  AppPopupMenu appMenu;
   AppPopupMenu appMenu01;
   AppPopupMenu appMenu02;
   AppPopupMenu appMenu03;
@@ -32,19 +33,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    appMenu01 = ThisIsOneMenu();
     appMenu02 = ThisIsAnotherMenu();
-    appMenu03 = HereIsAnotherMenu(context, onSelected: (int value) {
-      switch (value) {
-        case 1:
-          print('value: $value');
-          break;
-        case 2:
-          print('value: $value');
-          break;
-        default:
-      }
-    });
+    appMenu03 = HereIsAnotherMenu<String>(
+      items: ['This', 'That', 'Another'],
+      onSelected: (String value) => InheritedData.of(context).data = value,
+    );
   }
 
   @override
@@ -52,24 +45,35 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           title: Text("Popup Menu Examples"),
           actions: [
-            appMenu.popupMenuButton,
-            appMenu01.buttonMenu(),
+            appMenu01.popupMenuButton,
             appMenu02.buttonMenu(),
-            appMenu03.popupMenuButton,
-
-            // HereIsAnotherMenu(context, onSelected: (int value) {
-            //   switch (value) {
-            //     case 1:
-            //       print('value: $value');
-            //       break;
-            //     case 2:
-            //       print('value: $value');
-            //       break;
-            //     default:
-            //   }
-            // }).popupMenuButton,
+            appMenu03.buttonMenu(
+              icon: Icon(Icons.settings),
+              onSelected: (dynamic value) {
+                InheritedData.of(context).data = value;
+              },
+            )
           ],
         ),
-        body: Center(),
+        body: MenuOption(),
       );
+}
+
+class MenuOption extends StatelessWidget {
+  MenuOption({Key key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    var data = InheritedData.of(context).data;
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            '$data',
+            style: Theme.of(context).textTheme.headline4,
+          ),
+        ],
+      ),
+    );
+  }
 }

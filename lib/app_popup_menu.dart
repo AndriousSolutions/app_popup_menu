@@ -8,6 +8,7 @@
 import 'package:flutter/material.dart'
     show
         BuildContext,
+        Builder,
         Color,
         EdgeInsets,
         EdgeInsetsGeometry,
@@ -20,7 +21,9 @@ import 'package:flutter/material.dart'
         PopupMenuItem,
         PopupMenuItemBuilder,
         PopupMenuItemSelected,
+        Scaffold,
         ShapeBorder,
+        SnackBar,
         required,
         Text,
         Widget;
@@ -41,7 +44,9 @@ export 'package:flutter/material.dart'
         PopupMenuItem,
         PopupMenuItemBuilder,
         PopupMenuItemSelected,
+        Scaffold,
         ShapeBorder,
+        SnackBar,
         Text,
         Widget;
 
@@ -49,7 +54,7 @@ class AppPopupMenu<T> {
   //
   AppPopupMenu({
     this.key,
-    BuildContext context,
+    this.items,
     this.itemBuilder,
     this.initialValue,
     this.onSelected,
@@ -64,13 +69,11 @@ class AppPopupMenu<T> {
     this.shape,
     this.color,
     this.captureInheritedThemes = true,
-  }) {
-    /// Use the context to 'pass in' other information for your Popup menu.
-    _context = context;
-  }
+  });
 
   ///
   final Key key;
+  List<T> items;
   PopupMenuItemBuilder<T> itemBuilder;
   T initialValue;
   PopupMenuItemSelected<T> onSelected;
@@ -91,82 +94,100 @@ class AppPopupMenu<T> {
 
   set context(BuildContext context) {
     if (context != null) {
-      _context = context;
+      // Don't assign again. Too dangerous.
+      _context ??= context;
     }
   }
 
   BuildContext _context;
 
-  List<T> get items => [];
-
-  PopupMenuItemBuilder<T> _onItems(BuildContext context) {
-    var menuItems = items
+  PopupMenuItemBuilder<T> _onItems(List<T> menuItems) {
+    menuItems ??= items;
+    var popupMenuItems = menuItems
         .map((Object item) =>
             PopupMenuItem<T>(value: item, child: Text(item.toString())))
         .toList();
     return (BuildContext context) => <PopupMenuEntry<T>>[
+          ...popupMenuItems,
+        ];
+  }
+
+  /// override in subclass
+  List<PopupMenuItem<T>> get menuItems => [];
+
+  /// override in subclass
+  List<PopupMenuEntry<T>> onItemBuilder(BuildContext context) {
+    if (menuItems.isEmpty) {
+      errorSnackBar();
+    }
+    return <PopupMenuEntry<T>>[
       ...menuItems,
     ];
   }
 
-  ///
-  List<PopupMenuItem<T>> get menuItems => [];
+  /// override in subclass
+  List<T> onItems() => [];
 
-  ///
-  List<PopupMenuEntry<T>> onItemBuilder(BuildContext context) =>
-      <PopupMenuEntry<T>>[
-        ...menuItems,
-      ];
-
-  ///
+  /// override in subclass
   T onInitialValue() => null;
 
-  ///
+  /// override in subclass
   void onSelection(T value) {}
 
-  ///
+  /// override in subclass
   void onCancellation() {}
 
-  ///
+  /// override in subclass
   String onTooltip() => null;
 
-  ///
+  /// override in subclass
   double onElevation() => null;
 
-  ///
+  /// override in subclass
   EdgeInsetsGeometry onPadding() => const EdgeInsets.all(8);
 
-  ///
+  /// override in subclass
   Widget onChild() => null;
 
-  ///
+  /// override in subclass
   Widget onIcon() => null;
 
-  ///
+  /// override in subclass
   Offset onOffset() => Offset.zero;
 
-  ///
+  /// override in subclass
   bool onEnabled() => true;
 
-  ///
+  /// override in subclass
   ShapeBorder onShape() => null;
 
-  ///
+  /// override in subclass
   Color onColor() => null;
 
-  ///
+  /// override in subclass
   bool onCaptureInheritedThemes() => true;
 
-  ///
-  PopupMenuButton<T> get popupMenuButton => buttonMenu();
+  void errorSnackBar() {
+    var state = Scaffold.of(context);
+    state?.showSnackBar(
+      SnackBar(
+        content: Text('Error. No menu options defined.'),
+      ),
+    );
+  }
 
   ///
-  PopupMenuButton<T> buttonMenu({
+  // Returning a widget allows for the Builder() widget below.
+  Widget get popupMenuButton => buttonMenu();
+
+  ///
+  // Returning a widget allows for the Builder() widget below.
+  Widget buttonMenu({
     Key key,
-    BuildContext context,
-    PopupMenuItemBuilder<String> itemBuilder,
-    String initialValue,
-    PopupMenuItemSelected<String> onSelected,
+    List<T> items,
+    PopupMenuItemBuilder<T> itemBuilder,
+    T initialValue,
+    PopupMenuItemSelected<T> onSelected,
     PopupMenuCanceled onCanceled,
     String tooltip,
     double elevation,
@@ -179,29 +200,31 @@ class AppPopupMenu<T> {
     Color color,
     bool captureInheritedThemes,
   }) {
-    // The context passed here takes precedence.
-    this.context = context;
-    //
-    return PopupMenuButton(
-      itemBuilder: itemBuilder ?? items.isNotEmpty
-          ? _onItems(this.context)
-          : this.itemBuilder ?? onItemBuilder,
-      initialValue: initialValue ?? this.initialValue ?? onInitialValue(),
-      onSelected: onSelected ?? this.onSelected ?? onSelection,
-      onCanceled: onCanceled ?? this.onCanceled ?? onCancellation,
-      tooltip: tooltip ?? this.tooltip ?? onTooltip(),
-      elevation: elevation ?? this.elevation ?? onElevation(),
-      padding: padding ?? this.padding ?? onPadding(),
-      icon: icon ?? this.icon ?? onIcon(),
-      offset: offset ?? this.offset ?? onOffset(),
-      enabled: enabled ?? this.enabled ?? onEnabled(),
-      shape: shape ?? this.shape ?? onShape(),
-      color: color ?? this.color ?? onColor(),
-      captureInheritedThemes: captureInheritedThemes ??
-          this.captureInheritedThemes ??
-          onCaptureInheritedThemes(),
-      child: child ?? this.child ?? onChild(),
-    );
+    // So to retrieve the Scaffold object if any.
+    return Builder(builder: (context) {
+      this.context ??= context;
+      items ??= this.items;
+      return PopupMenuButton<T>(
+        itemBuilder: itemBuilder ?? items != null && items.isNotEmpty
+            ? _onItems(items)
+            : this.itemBuilder ?? onItemBuilder ?? _onItems(onItems()),
+        initialValue: initialValue ?? this.initialValue ?? onInitialValue(),
+        onSelected: onSelected ?? this.onSelected ?? onSelection,
+        onCanceled: onCanceled ?? this.onCanceled ?? onCancellation,
+        tooltip: tooltip ?? this.tooltip ?? onTooltip(),
+        elevation: elevation ?? this.elevation ?? onElevation(),
+        padding: padding ?? this.padding ?? onPadding(),
+        icon: icon ?? this.icon ?? onIcon(),
+        offset: offset ?? this.offset ?? onOffset(),
+        enabled: enabled ?? this.enabled ?? onEnabled(),
+        shape: shape ?? this.shape ?? onShape(),
+        color: color ?? this.color ?? onColor(),
+        captureInheritedThemes: captureInheritedThemes ??
+            this.captureInheritedThemes ??
+            onCaptureInheritedThemes(),
+        child: child ?? this.child ?? onChild(),
+      );
+    });
   }
 }
 

@@ -2,13 +2,17 @@ import 'package:app_popup_menu/app_popup_menu.dart';
 
 export 'package:app_popup_menu/app_popup_menu.dart';
 
-class HereIsAnotherMenu extends AppPopupMenu<int> {
-  HereIsAnotherMenu(
-    BuildContext context, {
+import 'package:flutter/material.dart' show Key, Scaffold, SnackBar, Text;
+
+import 'main.dart';
+
+class HereIsAnotherMenu<T> extends AppPopupMenu<T> {
+  HereIsAnotherMenu({
     Key key,
-    PopupMenuItemBuilder<int> itemBuilder,
-    int initialValue,
-    PopupMenuItemSelected<int> onSelected,
+    List<T> items,
+    PopupMenuItemBuilder<T> itemBuilder,
+    T initialValue,
+    PopupMenuItemSelected<T> onSelected,
     PopupMenuCanceled onCanceled,
     String tooltip,
     double elevation,
@@ -21,8 +25,8 @@ class HereIsAnotherMenu extends AppPopupMenu<int> {
     Color color,
     bool captureInheritedThemes,
   }) : super(
-          context: context,
           key: key,
+          items: items,
           itemBuilder: itemBuilder,
           initialValue: initialValue,
           onSelected: onSelected,
@@ -38,17 +42,4 @@ class HereIsAnotherMenu extends AppPopupMenu<int> {
           color: color,
           captureInheritedThemes: captureInheritedThemes,
         );
-
-  @override
-  void onSelection(int value) {
-    switch (value) {
-      case 1:
-        print('value: $value');
-        break;
-      case 2:
-        print('value: $value');
-        break;
-      default:
-    }
-  }
 }
