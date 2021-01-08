@@ -1,3 +1,7 @@
+### 0.3.1
+ January 07, 2020
+- Ensure default values
+
 ## 0.3.0
  January 01, 2020
 - final List<T> items;

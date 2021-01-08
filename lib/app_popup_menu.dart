@@ -212,15 +212,15 @@ class AppPopupMenu<T> {
         onCanceled: onCanceled ?? this.onCanceled ?? onCancellation,
         tooltip: tooltip ?? this.tooltip ?? onTooltip(),
         elevation: elevation ?? this.elevation ?? onElevation(),
-        padding: padding ?? this.padding ?? onPadding(),
+        padding: padding ?? this.padding ?? onPadding() ?? const EdgeInsets.all(8),
         icon: icon ?? this.icon ?? onIcon(),
-        offset: offset ?? this.offset ?? onOffset(),
-        enabled: enabled ?? this.enabled ?? onEnabled(),
+        offset: offset ?? this.offset ?? onOffset() ?? Offset.zero,
+        enabled: enabled ?? this.enabled ?? onEnabled() ?? true,
         shape: shape ?? this.shape ?? onShape(),
         color: color ?? this.color ?? onColor(),
         captureInheritedThemes: captureInheritedThemes ??
             this.captureInheritedThemes ??
-            onCaptureInheritedThemes(),
+            onCaptureInheritedThemes() ?? true,
         child: child ?? this.child ?? onChild(),
       );
     });
