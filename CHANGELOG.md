@@ -1,3 +1,7 @@
+### 0.4.0
+ January 10, 2021
+- Allow for popup menu on iOS: popupMenu = Material(child: popupMenu);
+
 ### 0.3.2
  January 09, 2021
 - items: items

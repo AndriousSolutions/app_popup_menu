@@ -13,6 +13,7 @@ import 'package:flutter/material.dart'
         EdgeInsets,
         EdgeInsetsGeometry,
         Key,
+        Material,
         Offset,
         PopupMenuButton,
         PopupMenuCanceled,
@@ -203,7 +204,7 @@ class AppPopupMenu<T> {
     return Builder(builder: (context) {
       this.context ??= context;
       items ??= this.items;
-      return PopupMenuButton<T>(
+      Widget popupMenu = PopupMenuButton<T>(
         itemBuilder: itemBuilder ?? items != null && items.isNotEmpty
             ? _onItems(items)
             : this.itemBuilder ?? onItemBuilder ?? _onItems(onItems()),
@@ -212,7 +213,8 @@ class AppPopupMenu<T> {
         onCanceled: onCanceled ?? this.onCanceled ?? onCancellation,
         tooltip: tooltip ?? this.tooltip ?? onTooltip(),
         elevation: elevation ?? this.elevation ?? onElevation(),
-        padding: padding ?? this.padding ?? onPadding() ?? const EdgeInsets.all(8),
+        padding:
+            padding ?? this.padding ?? onPadding() ?? const EdgeInsets.all(8),
         icon: icon ?? this.icon ?? onIcon(),
         offset: offset ?? this.offset ?? onOffset() ?? Offset.zero,
         enabled: enabled ?? this.enabled ?? onEnabled() ?? true,
@@ -220,9 +222,16 @@ class AppPopupMenu<T> {
         color: color ?? this.color ?? onColor(),
         captureInheritedThemes: captureInheritedThemes ??
             this.captureInheritedThemes ??
-            onCaptureInheritedThemes() ?? true,
+            onCaptureInheritedThemes() ??
+            true,
         child: child ?? this.child ?? onChild(),
       );
+      // If not running under the MaterialApp widget.
+      if (context.widget is! Material &&
+          context.findAncestorWidgetOfExactType<Material>() == null) {
+        popupMenu = Material(child: popupMenu);
+      }
+      return popupMenu;
     });
   }
 }
