@@ -51,7 +51,9 @@ export 'package:flutter/material.dart'
         Text,
         Widget;
 
-class AppPopupMenu<T> {
+/// Abstract so to force to extend a subclass
+/// and allow for overriding fields.
+abstract class AppPopupMenu<T> {
   //
   AppPopupMenu({
     this.key,
@@ -205,6 +207,7 @@ class AppPopupMenu<T> {
       this.context ??= context;
       items ??= this.items;
       Widget popupMenu = PopupMenuButton<T>(
+        key: key ?? this.key,
         itemBuilder: itemBuilder ?? items != null && items.isNotEmpty
             ? _onItems(items)
             : this.itemBuilder ?? onItemBuilder ?? _onItems(onItems()),
