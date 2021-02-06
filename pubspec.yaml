@@ -1,7 +1,9 @@
 name: app_popup_menu
 description: Your app's popup menu. It's adaptive and dynamic.
+homepage: https://github.com/AndriousSolutions/app_popup_menu
+repository: https://github.com/AndriousSolutions/app_popup_menu
 
-version: 0.6.0+2
+version: 0.6.0+3
 
 environment:
   sdk: ">=2.7.0 <3.0.0"

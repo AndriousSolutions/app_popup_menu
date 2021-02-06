@@ -1,4 +1,4 @@
-## 0.6.0
+## 0.6.0+3
  February 05, 2021
 - Converted to a StatefulWidget
 
