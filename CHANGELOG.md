@@ -1,3 +1,6 @@
+## 0.6.0
+ February 05, 2021
+- Converted to a StatefulWidget
 
 ## 0.5.0
  January 12, 2021

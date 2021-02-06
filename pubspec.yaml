@@ -1,7 +1,7 @@
 name: app_popup_menu
 description: Your app's popup menu. It's adaptive and dynamic.
 
-version: 0.5.0
+version: 0.6.0
 
 environment:
   sdk: ">=2.7.0 <3.0.0"

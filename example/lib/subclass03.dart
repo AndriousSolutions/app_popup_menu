@@ -4,10 +4,11 @@ export 'package:app_popup_menu/app_popup_menu.dart';
 
 import 'package:flutter/material.dart' show Key;
 
-class HereIsAnotherMenu<T> extends AppPopupMenu<T> {
-  HereIsAnotherMenu({
+class SubClass03<T> extends AppPopupMenu<T> {
+  SubClass03({
     Key key,
     List<T> items,
+    List<PopupMenuItem<T>> menuItems,
     PopupMenuItemBuilder<T> itemBuilder,
     T initialValue,
     PopupMenuItemSelected<T> onSelected,
@@ -25,6 +26,7 @@ class HereIsAnotherMenu<T> extends AppPopupMenu<T> {
   }) : super(
           key: key,
           items: items,
+          menuItems: menuItems,
           itemBuilder: itemBuilder,
           initialValue: initialValue,
           onSelected: onSelected,
