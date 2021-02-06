@@ -283,8 +283,8 @@ class _AppPopupMenuState<T> extends State<AppPopupMenu>
         continue;
       }
       return (BuildContext context) => <PopupMenuEntry<T>>[
-        ...itemsMenu,
-      ];
+            ...itemsMenu,
+          ];
     }
     return null;
   }
@@ -296,7 +296,7 @@ mixin _PopupMenuParameters<T> {
     List<PopupMenuItem<T>> menuItems,
     PopupMenuItemBuilder<T> itemBuilder,
     T initialValue,
- //   PopupMenuItemSelected<T> onSelected,  // For now, this will be disabled.
+    //   PopupMenuItemSelected<T> onSelected,  // For now, this will be disabled.
     PopupMenuCanceled onCanceled,
     String tooltip,
     double elevation,

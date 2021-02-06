@@ -86,8 +86,8 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           title: Text('Popup Menu Examples'),
           actions: [
-           appMenu01,
-           appMenu02,
+            appMenu01,
+            appMenu02,
             appMenu03.set<String>(
               initialValue: '3',
               items: ['One', 'Two', 'Three'],
