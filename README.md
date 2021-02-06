@@ -3,6 +3,24 @@ A Better Flutter Menu
 
 *A dynamic and more adaptive popup menu*
 
+**Installing**
+
+I don't always like the version number suggested in the '[Installing](https://pub.dev/packages/mvc_pattern#-installing-tab-)' page.
+Instead, always go up to the '**major**' semantic version number when installing my library packages. This means always entering a version number trailing with two zero, '**.0.0**'. This allows you to take in any '**minor**' versions introducing new features as well as any '**patch**' versions that involves bugfixes. Semantic version numbers are always in this format: **major.minor.patch**.
+
+1. **patch** - I've made bugfixes
+2. **minor** - I've introduced new features
+3. **major** - I've essentially made a new app. It's broken backwards-compatibility and has a completely new user experience. You won't get this version until you increment the **major** number in the pubspec.yaml file.
+
+And so, add this to your pubspec.yaml file instead:
+```javascript
+dependencies:
+  set_state:^0.6.0
+```
+For more information on this topic, read the article, [The importance of semantic versioning](https://medium.com/@xabaras/the-importance-of-semantic-versioning-9b78e8e59bba).
+
+
+
 I hate Flutter's popup menu. It's ugly. It's a block of white in the corner of the screen. Does it have to be just a square like that slapped on top of the AppBar? It doesn't look good. It looks amateurish. Why can't it look more like the menu in the screenshot below on the right-hand side? That's a little better.
 
 ![Image for post](https://miro.medium.com/max/3480/1*t2VoG8wmjrlbTNDvotRwJg.png)
