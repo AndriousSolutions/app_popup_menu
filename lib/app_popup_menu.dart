@@ -168,7 +168,8 @@ class AppPopupMenu<T> extends StatefulWidget with _StateSetWidget {
   List<PopupMenuItem<T>>? onMenuItems() => null;
 
   /// Can override in subclass
-  void onSelection(T value) => null; // onSelected == null ? null : onSelected!(value);
+  void onSelection(T value) =>
+      null; // onSelected == null ? null : onSelected!(value);
 
   /// Can override in subclass
   void onCancellation() => onCanceled == null ? null : onCanceled!();
@@ -211,7 +212,7 @@ class AppPopupMenu<T> extends StatefulWidget with _StateSetWidget {
   }
 }
 
-class _AppPopupMenuState<T> extends State<AppPopupMenu<T>>{
+class _AppPopupMenuState<T> extends State<AppPopupMenu<T>> {
 //    with _PopupMenuParameters<T> {
   //
 
@@ -265,7 +266,11 @@ class _AppPopupMenuState<T> extends State<AppPopupMenu<T>>{
     //
     /// 'items' parameters takes precedence over 'menuItems'
     List<T>? popupItems;
-    for (final List<T>? itemList in [widget._setParams.items, widget.items, widget.onItems()]) {
+    for (final List<T>? itemList in [
+      widget._setParams.items,
+      widget.items,
+      widget.onItems()
+    ]) {
       if (itemList == null || itemList.isEmpty) {
         continue;
       }
@@ -286,6 +291,7 @@ class _AppPopupMenuState<T> extends State<AppPopupMenu<T>>{
 
     if (itemBuilder == null) {
       final List<PopupMenuItem<T>>? onMenuItems = widget.onMenuItems();
+
       /// 'menuItems'
       for (final List<PopupMenuItem<T>>? itemsMenu in [
         widget._setParams.menuItems,

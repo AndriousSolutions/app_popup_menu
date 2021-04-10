@@ -10,7 +10,7 @@ import 'package:app_popup_menu/app_popup_menu.dart';
 import 'build_inherited_widget.dart';
 
 class SubClass01 extends AppPopupMenu<String> {
-  SubClass01({Key? key}):super(key: key);
+  SubClass01({Key? key}) : super(key: key);
   //
   @override
   String onInitialValue() => 'Option 3';
@@ -27,7 +27,7 @@ class SubClass01 extends AppPopupMenu<String> {
 
   @override
   List<PopupMenuItem<String>> onMenuItems() => const [
-        PopupMenuItem( value: '1',child: Text('Option 5')),
+        PopupMenuItem(value: '1', child: Text('Option 5')),
         PopupMenuItem(value: '2', child: Text('Option 6')),
         PopupMenuItem(value: '3', child: Text('Option 7')),
         PopupMenuItem(value: '4', child: Text('Option 8')),
