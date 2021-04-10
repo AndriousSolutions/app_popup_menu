@@ -1,3 +1,8 @@
+
+## 1.0.0
+ April 10, 2021
+- Migrated to Null Safety with SDK 2.12.0
+
 ## 0.6.0+5
  February 05, 2021
 - Converted to a StatefulWidget
@@ -32,4 +37,3 @@
 ## 0.1.0
  December 31, 2020
 - Initial conception
-

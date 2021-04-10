@@ -1,3 +1,7 @@
+// Copyright 2021 Andrious Solutions Ltd. All rights reserved.
+// Use of this source code is governed by a Apache License, Version 2.0.
+// The main directory contains that LICENSE file.
+
 import 'package:flutter/material.dart'
     show
         BuildContext,
@@ -10,7 +14,7 @@ import 'package:flutter/material.dart'
 
 class InheritedData extends InheritedWidget {
   ///
-  InheritedData(this.object, {Key key, Widget child})
+  const InheritedData(this.object, {Key? key, required Widget child})
       : super(key: key, child: child);
 
   ///
@@ -28,13 +32,13 @@ class InheritedData extends InheritedWidget {
   ///
   @override
   bool updateShouldNotify(InheritedData oldWidget) {
-    var notify = object.notify;
+    final notify = object.notify;
     object.notify = false;
     return notify;
   }
 
   ///
-  static InheritedData of(BuildContext context) =>
+  static InheritedData? of(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<InheritedData>();
 }
 
@@ -45,10 +49,11 @@ class InheritedData extends InheritedWidget {
 /// [InheritedWidget] and consequently any of its dependents,
 /// instead of rebuilding the app's entire widget tree.
 class BuildInheritedWidget extends StatefulWidget {
-  BuildInheritedWidget({Key key, this.child}) : super(key: key);
+  const BuildInheritedWidget({Key? key, required this.child}) : super(key: key);
   final Widget child;
   static final _BuildInheritedWidgetState state = _BuildInheritedWidgetState();
   @override
+  // ignore: no_logic_in_create_state
   State createState() => state;
 }
 
