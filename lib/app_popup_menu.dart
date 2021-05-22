@@ -168,8 +168,7 @@ class AppPopupMenu<T> extends StatefulWidget with _StateSetWidget {
   List<PopupMenuItem<T>>? onMenuItems() => null;
 
   /// Can override in subclass
-  void onSelection(T value) =>
-      null; // onSelected == null ? null : onSelected!(value);
+  void onSelection(T value) => null; // onSelected == null ? null : onSelected!(value);
 
   /// Can override in subclass
   void onCancellation() => onCanceled == null ? null : onCanceled!();
@@ -188,6 +187,9 @@ class AppPopupMenu<T> extends StatefulWidget with _StateSetWidget {
 
   /// Can override in subclass
   Widget? onIcon() => null;
+
+  /// Can override in subclass
+  double? onIconSize() => null;
 
   /// Can override in subclass
   Offset? onOffset() => offset;
@@ -233,29 +235,22 @@ class _AppPopupMenuState<T> extends State<AppPopupMenu<T>> {
     return Builder(builder: (context) {
       Widget popupMenu = PopupMenuButton<T>(
         itemBuilder: setParams.itemBuilder ?? _onItems(widget.onItemBuilder),
-        initialValue: setParams.initialValue ??
-            widget.initialValue ??
-            widget.onInitialValue(),
+        initialValue: setParams.initialValue ?? widget.initialValue ?? widget.onInitialValue(),
         onSelected: setParams.onSelected ?? widget.onSelection,
         onCanceled: setParams.onCanceled ?? widget.onCancellation,
         tooltip: setParams.tooltip ?? widget.tooltip ?? widget.onTooltip(),
-        elevation:
-            setParams.elevation ?? widget.elevation ?? widget.onElevation(),
-        padding: setParams.padding ??
-            widget.padding ??
-            widget.onPadding() ??
-            const EdgeInsets.all(8),
+        elevation: setParams.elevation ?? widget.elevation ?? widget.onElevation(),
+        padding: setParams.padding ?? widget.padding ?? widget.onPadding() ?? const EdgeInsets.all(8),
         icon: setParams.icon ?? widget.icon ?? widget.onIcon(),
+        iconSize: widget.onIconSize() ?? 24.0,
         offset: setParams.offset ?? widget.onOffset() ?? Offset.zero,
-        enabled:
-            setParams.enabled ?? widget.enabled ?? widget.onEnabled() ?? true,
+        enabled: setParams.enabled ?? widget.enabled ?? widget.onEnabled() ?? true,
         shape: setParams.shape ?? widget.shape ?? widget.onShape(),
         color: setParams.color ?? widget.color ?? widget.onColor(),
         child: setParams.child ?? widget.child ?? widget.onChild(),
       );
       // If not running under the MaterialApp widget.
-      if (context.widget is! Material &&
-          context.findAncestorWidgetOfExactType<Material>() == null) {
+      if (context.widget is! Material && context.findAncestorWidgetOfExactType<Material>() == null) {
         popupMenu = Material(child: popupMenu);
       }
       return popupMenu;
@@ -266,11 +261,7 @@ class _AppPopupMenuState<T> extends State<AppPopupMenu<T>> {
     //
     /// 'items' parameters takes precedence over 'menuItems'
     List<T>? popupItems;
-    for (final List<T>? itemList in [
-      widget._setParams.items,
-      widget.items,
-      widget.onItems()
-    ]) {
+    for (final List<T>? itemList in [widget._setParams.items, widget.items, widget.onItems()]) {
       if (itemList == null || itemList.isEmpty) {
         continue;
       }
@@ -280,10 +271,8 @@ class _AppPopupMenuState<T> extends State<AppPopupMenu<T>> {
     PopupMenuItemBuilder<T>? itemBuilder;
 
     if (popupItems != null) {
-      final List<PopupMenuEntry<T>> popupMenuItems = popupItems
-          .map((Object? item) =>
-              PopupMenuItem<T>(value: item as T?, child: Text(item.toString())))
-          .toList();
+      final List<PopupMenuEntry<T>> popupMenuItems =
+          popupItems.map((Object? item) => PopupMenuItem<T>(value: item as T?, child: Text(item.toString()))).toList();
       itemBuilder = (BuildContext context) => <PopupMenuEntry<T>>[
             ...popupMenuItems,
           ];
@@ -306,9 +295,7 @@ class _AppPopupMenuState<T> extends State<AppPopupMenu<T>> {
             ];
       }
     }
-    return itemBuilder ??
-        menuList ??
-        (BuildContext context) => <PopupMenuEntry<T>>[];
+    return itemBuilder ?? menuList ?? (BuildContext context) => <PopupMenuEntry<T>>[];
   }
 }
 
