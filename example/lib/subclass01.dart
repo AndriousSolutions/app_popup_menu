@@ -11,9 +11,6 @@ import 'build_inherited_widget.dart';
 
 class SubClass01 extends AppPopupMenu<String> {
   SubClass01({Key? key}) : super(key: key);
-  //
-  @override
-  String onInitialValue() => 'Option 3';
 
   /// items takes precedence over menuItems
   /// comment this out and see 5 to 8 options.
@@ -26,7 +23,7 @@ class SubClass01 extends AppPopupMenu<String> {
       ];
 
   @override
-  List<PopupMenuItem<String>> onMenuItems() => const [
+  List<PopupMenuEntry<String>> get menuItems => const [
         PopupMenuItem(value: '1', child: Text('Option 5')),
         PopupMenuItem(value: '2', child: Text('Option 6')),
         PopupMenuItem(value: '3', child: Text('Option 7')),
@@ -34,7 +31,7 @@ class SubClass01 extends AppPopupMenu<String> {
       ];
 
   @override
-  void onSelection(String value) {
+  void selected(String value) {
     InheritedData.of(context!)?.data = value;
     ScaffoldMessenger.of(context!).showSnackBar(
       SnackBar(
@@ -44,12 +41,9 @@ class SubClass01 extends AppPopupMenu<String> {
   }
 
   @override
-  void onCancellation() => ScaffoldMessenger.of(context!).showSnackBar(
+  void canceled() => ScaffoldMessenger.of(context!).showSnackBar(
         const SnackBar(
           content: Text('SubClass01: Nothing selected.'),
         ),
       );
-
-  @override
-  Offset onOffset() => const Offset(0, 45);
 }

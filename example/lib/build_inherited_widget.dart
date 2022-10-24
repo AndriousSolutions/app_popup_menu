@@ -18,7 +18,7 @@ class InheritedData extends InheritedWidget {
       : super(key: key, child: child);
 
   ///
-  final _BuildInheritedWidgetState object;
+  final BuildInheritedWidgetState object;
 
   dynamic get data => object.data ?? '';
   set data(dynamic data) {
@@ -51,13 +51,13 @@ class InheritedData extends InheritedWidget {
 class BuildInheritedWidget extends StatefulWidget {
   const BuildInheritedWidget({Key? key, required this.child}) : super(key: key);
   final Widget child;
-  static final _BuildInheritedWidgetState state = _BuildInheritedWidgetState();
+  static final BuildInheritedWidgetState state = BuildInheritedWidgetState();
   @override
   // ignore: no_logic_in_create_state
   State createState() => state;
 }
 
-class _BuildInheritedWidgetState extends State<BuildInheritedWidget> {
+class BuildInheritedWidgetState extends State<BuildInheritedWidget> {
   bool notify = false;
   dynamic data;
   @override

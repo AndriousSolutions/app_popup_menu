@@ -1,4 +1,9 @@
 
+## 2.0.0
+ October 24, 2022
+- class AppMenu<T> with PopupMenuButtonFunctions<T> {
+- class PopupMenu<T> extends StatelessWidget {
+
 ## 1.0.0
  April 10, 2021
 - Migrated to Null Safety with SDK 2.12.0
