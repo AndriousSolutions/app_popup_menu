@@ -10,7 +10,7 @@ import 'package:app_popup_menu/app_popup_menu.dart';
 import 'build_inherited_widget.dart';
 
 class SubClass01 extends AppPopupMenu<String> {
-  SubClass01({Key? key}) : super(key: key);
+  SubClass01({super.key});
 
   /// items takes precedence over menuItems
   /// comment this out and see 5 to 8 options.
