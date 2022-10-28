@@ -55,7 +55,9 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         });
 
-    //
+//    appMenu03.items = ['1', '2', '3'];  // Uncomment to take precedence.
+
+    // Comment out to see the menu options, 'Look at that!', below.
     appMenu03.menuEntries = const [
       PopupMenuItem(
         value: '1',
@@ -70,7 +72,24 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Text('Other'),
       ),
     ];
-    //
+
+    // This has the least precedence among provided menu items.
+    // Should it have the most precedence? You tell me.
+    appMenu03.itemBuilder = (BuildContext context) => const [
+          PopupMenuItem(
+            value: '4',
+            child: Text('Look'),
+          ),
+          PopupMenuItem(
+            value: '5',
+            child: Text('at'),
+          ),
+          PopupMenuItem(
+            value: '6',
+            child: Text('that!'),
+          ),
+        ];
+
     appMenu03.onCanceled = () {
       ScaffoldMessenger.of(appMenu03.context!).showSnackBar(
         const SnackBar(
@@ -113,7 +132,33 @@ class _HomeScreenState extends State<HomeScreen> {
             appMenu03.popupMenuButton,
             // An anonymous menu not assigned to a variable.
             PopupMenu<String>(
-              items: const ['This', 'is', 'cool'],
+              items: const [
+                'This',
+                'is',
+                'cool!'
+              ], // Comment this to get entries below.
+              menuEntries: const [
+                PopupMenuItem(
+                  child: Text('This'),
+                ),
+                PopupMenuItem(
+                  child: Text('is'),
+                ),
+                PopupMenuItem(
+                  child: Text('too.'),
+                ),
+              ], // Comment all above for itemBuilder's 'So is This!' items.
+              itemBuilder: (context) => const [
+                PopupMenuItem(
+                  child: Text('So'),
+                ),
+                PopupMenuItem(
+                  child: Text('is'),
+                ),
+                PopupMenuItem(
+                  child: Text('this!'),
+                ),
+              ],
               onSelected: (String value) {
                 InheritedData.of(context)?.data = value;
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -146,6 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // Returns the immutable menu object.
   // It's listing all the 'inline' functions available to you.
   PopupMenu<int> get appMenu02 => PopupMenu<int>(
+//        items: const [1, 2],  // Uncomment to take precedence
         menuEntries: const [
           PopupMenuItem(
             value: 1,

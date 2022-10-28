@@ -284,19 +284,7 @@ class PopupMenu<T> extends StatelessWidget {
   /// Whether the popup menu is positioned over or under the popup menu button.
   final PopupMenuPosition? position;
 
-  /// Produce the menu items for a List of items of type T.
-  PopupMenuItemBuilder<T> _onItems(List<T>? menuItems) {
-    menuItems ??= items;
-    final popupMenuItems = menuItems!
-        .map((T? item) =>
-            PopupMenuItem<T>(value: item, child: Text(item.toString())))
-        .toList();
-    return (BuildContext context) => <PopupMenuEntry<T>>[
-          ...popupMenuItems,
-        ];
-  }
-
-  ///
+  /// Supply the appropriate menu items
   List<PopupMenuEntry<T>> onItemBuilder(BuildContext context) {
     List<PopupMenuEntry<T>>? menuOptions;
     // items or onItems()
@@ -318,6 +306,18 @@ class PopupMenu<T> extends StatelessWidget {
     // itemBuilder()
     menuOptions ??= itemBuilder == null ? null : itemBuilder!(context);
     return menuOptions ??= <PopupMenuEntry<T>>[];
+  }
+
+  /// Produce the menu items for a List of items of type T.
+  PopupMenuItemBuilder<T> _onItems(List<T>? menuItems) {
+    menuItems ??= items;
+    final popupMenuItems = menuItems!
+        .map((T? item) =>
+            PopupMenuItem<T>(value: item, child: Text(item.toString())))
+        .toList();
+    return (BuildContext context) => <PopupMenuEntry<T>>[
+          ...popupMenuItems,
+        ];
   }
 
   /// List of menu items to appear in the popup menu.

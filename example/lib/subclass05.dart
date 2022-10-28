@@ -21,6 +21,7 @@ class SubClass05 extends PopupMenu<String> {
   @override
   List<String>? onItems() => const ['Within', 'its', 'own', 'class'];
 
+  /// Comment out the onItems line above to get these entries instead.
   @override
   List<PopupMenuEntry<String>> get menuItems => const [
         PopupMenuItem(
@@ -36,6 +37,24 @@ class SubClass05 extends PopupMenu<String> {
           child: Text('way'),
         ),
       ];
+
+  /// Comment out the items above to get this itemBuilder to return menu options.
+  @override
+  List<PopupMenuEntry<String>> Function(BuildContext context)?
+      get itemBuilder => (context) => const [
+            PopupMenuItem(
+              child: Text('This'),
+            ),
+            PopupMenuItem(
+              child: Text('is'),
+            ),
+            PopupMenuItem(
+              child: Text('yet'),
+            ),
+            PopupMenuItem(
+              child: Text('another'),
+            ),
+          ];
 
   /// The value of the menu item, if any, that should be highlighted when the menu opens.
   @override

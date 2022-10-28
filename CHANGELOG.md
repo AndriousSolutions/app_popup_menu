@@ -1,4 +1,8 @@
 
+## 2.1.0
+October 28, 2022
+- Tests of order of precedence: items, menuEntries, itemBuilder
+
 ## 2.0.0
  October 24, 2022
 - class AppMenu<T> with PopupMenuButtonFunctions<T> {
