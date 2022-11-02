@@ -1,4 +1,8 @@
 
+## 2.2.0
+November 02, 2022
+- Update comment headers 
+
 ## 2.1.0
 October 28, 2022
 - Tests of order of precedence: items, menuEntries, itemBuilder

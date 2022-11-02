@@ -1,7 +1,8 @@
-// Copyright 2022 Andrious Solutions Ltd. All rights reserved.
-// Use of this source code is governed by a Apache License, Version 2.0.
-// The main directory contains that LICENSE file.
-
+//
+// Original source provided by Andrious Solutions Ltd.  October 2022.
+// Distributed "AS IS" WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND
+// either expressed or implied. Use, copy, and modify at your own risk.
+//
 import 'package:flutter/material.dart';
 
 /// Exports that will be likely required by the subclass.
@@ -55,7 +56,7 @@ class AppPopupMenu<T> with PopupMenuButtonFunctions<T> {
     this.color,
     this.enableFeedback,
     this.constraints,
-    this.position, // Either PopupMenuPosition.over or PopupMenuPosition.under
+    this.position, // PopupMenuPosition.over or PopupMenuPosition.under
   });
 
   /// Key to the PopupMenuButton
