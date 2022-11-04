@@ -1,4 +1,9 @@
 
+## 2.2.1
+November 04, 2022
+- Removed commented out class AppMenu
+- Updated README.md
+
 ## 2.2.0
 November 02, 2022
 - Update comment headers 
